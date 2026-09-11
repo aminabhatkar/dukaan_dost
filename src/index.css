@@ -1,0 +1,44 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #EFE7D6;
+  font-family: Archivo, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: #2A6395;
+}
+
+a:hover {
+  color: #1E4A72;
+}
+
+input {
+  font-family: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@keyframes dd-up {
+  from { transform: translateY(14px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes dd-sheet {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}

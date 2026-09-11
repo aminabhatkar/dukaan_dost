@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0}
+body{background:#EFE7D6;font-family:Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button{font-family:inherit}
+a{color:#2A6395}
+a:hover{color:#1E4A72}
+input{font-family:inherit}
+@keyframes dd-up{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes dd-sheet{from{transform:translateY(100%)}to{transform:translateY(0)}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#EFE7D6;display:flex;justify-content:center;align-items:flex-start">
+<div style="width:100%;max-width:480px;min-height:100vh;background:#FCF8F0;position:relative;overflow:hidden;box-shadow:0 0 0 1px #E4D8BF, 0 10px 44px rgba(72,55,32,.14);font-size:var(--dd-base,17px);color:var(--dd-ink,#1B1712)">
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+  <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:36px 28px 44px;gap:0">
+    <div style="width:88px;height:88px;border-radius:20px;background:var(--dd-accent,#2A6395);display:flex;align-items:center;justify-content:center;margin-bottom:26px">
+      <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#FCF8F0" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 5 4h14l2 5.5"></path><path d="M4 9.5h16V20H4z"></path><path d="M3 9.5c0 1.4 1.1 2.5 2.5 2.5S8 10.9 8 9.5c0 1.4 1.1 2.5 2.5 2.5S13 10.9 13 9.5c0 1.4 1.1 2.5 2.5 2.5S18 10.9 18 9.5"></path><path d="M9.5 20v-5h5v5"></path></svg>
+    </div>
+    <h1 style="margin:0;font-size:42px;font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--dd-accent,#2A6395)">DukaanDost</h1>
+    <p style="margin:14px 0 0;font-size:21px;font-weight:600;line-height:1.45;color:#453A2C">Namaste! Aapki dukaan ka<br>hisaab, ab phone mein.</p>
+    <div style="height:44px"></div>
+    <button onClick="{{ doLogin }}" style="width:100%;display:flex;align-items:center;justify-content:center;gap:14px;background:#FFFFFF;color:#1B1712;border:2px solid #DCCBAA;border-radius:14px;padding:22px 18px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">
+      <svg width="28" height="28" viewBox="0 0 48 48"><path fill="#4285F4" d="M45 24c0-1.6-.1-2.7-.4-4H24v7.5h12c-.2 2-1.5 5-4.4 7l6.8 5.3C42.4 36 45 30.6 45 24z"></path><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.4-5.3l-6.8-5.3c-1.8 1.3-4.3 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7 5.4C8 41 15.4 46 24 46z"></path><path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7-5.4C3.6 17 3 20.4 3 24s.6 7 2.4 9.9l6.1-5.4z"></path><path fill="#EA4335" d="M24 10.4c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 4.2 29.9 2 24 2 15.4 2 8 7 5.4 14.1l7 5.4C14.2 14.2 19.1 10.4 24 10.4z"></path></svg>
+      Google Se Login Karein
+    </button>
+    <p style="margin:20px 0 0;font-size:16px;font-weight:600;color:#7A6B55;line-height:1.5">Bas ek baar login. Password yaad rakhne ki zaroorat nahi.</p>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:0 0 112px">
+    <div style="background:var(--dd-accent,#2A6395);padding:22px 22px 26px;color:#FFFFFF">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div style="font-size:20px;font-weight:800;letter-spacing:-.01em">DukaanDost</div>
+        <button onClick="{{ doLogout }}" style="background:transparent;color:#FFFFFF;border:2px solid rgba(255,252,245,.6);border-radius:10px;padding:9px 14px;font-size:15px;font-weight:700;cursor:pointer">Logout</button>
+      </div>
+      <div style="margin-top:18px;font-size:19px;font-weight:600;opacity:.95">Aaj ka hisaab</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+        <div style="background:#FFFFFF;border-radius:14px;padding:16px 16px 14px;color:#1B1712">
+          <div style="font-size:52px;font-weight:800;line-height:1;letter-spacing:-.03em">{{ todayCount }}</div>
+          <div style="margin-top:6px;font-size:17px;font-weight:700;color:#453A2C">Aaj ke Order</div>
+        </div>
+        <div style="background:#E2A63C;border-radius:14px;padding:16px 16px 14px;color:#3A2A08">
+          <div style="font-size:52px;font-weight:800;line-height:1;letter-spacing:-.03em">{{ pendingCount }}</div>
+          <div style="margin-top:6px;font-size:17px;font-weight:700">Delivery Baaki</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:20px 18px;display:flex;flex-direction:column;gap:16px">
+      <button onClick="{{ goOrders }}" style="text-align:left;display:flex;align-items:center;gap:16px;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:16px;padding:22px 18px;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14);color:#1B1712">
+        <span style="flex:none;width:60px;height:60px;border-radius:14px;background:#2A6395;display:flex;align-items:center;justify-content:center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3z"></path><path d="M3 7l2.5-4h13L21 7"></path><path d="M9 11h6"></path></svg>
+        </span>
+        <span style="flex:1;min-width:0">
+          <span style="display:block;font-size:25px;font-weight:800;letter-spacing:-.01em">Naye Orders</span>
+          <span style="display:block;margin-top:3px;font-size:17px;font-weight:600;color:#6A5C48">{{ newCountLabel }}</span>
+        </span>
+        <sc-if value="{{ hasNew }}" hint-placeholder-val="{{ false }}">
+          <span style="flex:none;min-width:38px;height:38px;padding:0 10px;border-radius:19px;background:#B85536;color:#FFFFFF;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center">{{ newCount }}</span>
+        </sc-if>
+      </button>
+
+      <button onClick="{{ goTracking }}" style="text-align:left;display:flex;align-items:center;gap:16px;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:16px;padding:22px 18px;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14);color:#1B1712">
+        <span style="flex:none;width:60px;height:60px;border-radius:14px;background:#23824E;display:flex;align-items:center;justify-content:center">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17.5" r="2.6"></circle><circle cx="18" cy="17.5" r="2.6"></circle><path d="M3 7h3l3.4 10.5H15"></path><path d="M14 8h6v5h-6z"></path></svg>
+        </span>
+        <span style="flex:1;min-width:0">
+          <span style="display:block;font-size:25px;font-weight:800;letter-spacing:-.01em">Order Tracking</span>
+          <span style="display:block;margin-top:3px;font-size:17px;font-weight:600;color:#6A5C48">{{ trackingSub }}</span>
+        </span>
+      </button>
+
+      <button onClick="{{ goKhata }}" style="text-align:left;display:flex;align-items:center;gap:16px;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:16px;padding:22px 18px;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14);color:#1B1712">
+        <span style="flex:none;width:60px;height:60px;border-radius:14px;background:#B85536;display:flex;align-items:center;justify-content:center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h13v18H6z"></path><path d="M6 3H4.5v18H6"></path><path d="M10 8h5"></path><path d="M10 12h5"></path><path d="M10 16h3"></path></svg>
+        </span>
+        <span style="flex:1;min-width:0">
+          <span style="display:block;font-size:25px;font-weight:800;letter-spacing:-.01em">Grahak Khata</span>
+          <span style="display:block;margin-top:3px;font-size:17px;font-weight:600;color:#6A5C48">{{ khataSub }}</span>
+        </span>
+      </button>
+
+      <button onClick="{{ goRates }}" style="text-align:left;display:flex;align-items:center;gap:16px;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:16px;padding:22px 18px;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14);color:#1B1712">
+        <span style="flex:none;width:60px;height:60px;border-radius:14px;background:#8A6A22;display:flex;align-items:center;justify-content:center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5h9"></path><path d="M7 8.5h9"></path><path d="M7 12h4.5c2.6 0 4.5-1.5 4.5-3.5"></path><path d="M7.5 12 14 19"></path></svg>
+        </span>
+        <span style="flex:1;min-width:0">
+          <span style="display:block;font-size:25px;font-weight:800;letter-spacing:-.01em">Rate List</span>
+          <span style="display:block;margin-top:3px;font-size:17px;font-weight:600;color:#6A5C48">{{ ratesSub }}</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isOrders }}" hint-placeholder-val="{{ false }}">
+  <div style="padding-bottom:112px">
+    <div style="background:var(--dd-accent,#2A6395);padding:16px 18px 20px;color:#FFFFFF;display:flex;align-items:center;gap:14px">
+      <button onClick="{{ goHome }}" style="flex:none;display:flex;align-items:center;gap:8px;background:#FFFFFF;color:#2A6395;border:none;border-radius:12px;padding:12px 15px;font-size:17px;font-weight:800;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"></path></svg>Ghar
+      </button>
+      <div style="font-size:26px;font-weight:800;letter-spacing:-.01em">Naye Orders</div>
+    </div>
+
+    <sc-if value="{{ hasNew }}" hint-placeholder-val="{{ true }}">
+      <div style="padding:16px 16px 0;display:flex;flex-direction:column;gap:16px">
+        <sc-for list="{{ newOrders }}" as="o" hint-placeholder-count="2">
+          <div style="background:#FFFFFF;border:2px solid #DCCBAA;border-radius:16px;box-shadow:0 3px 10px rgba(72,55,32,.14);overflow:hidden">
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:16px 16px 12px;border-bottom:2px dashed #E8DCC4">
+              <div style="flex:1;min-width:0">
+                <div style="font-size:24px;font-weight:800;letter-spacing:-.01em">{{ o.cust }}</div>
+                <div style="margin-top:5px;display:flex;align-items:center;gap:7px;font-size:16px;font-weight:700;color:#453A2C">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#23824E"><path d="M6.6 3.5 3.5 6.6c-.4.4-.5 1-.3 1.5 2 5 6.7 9.7 11.7 11.7.5.2 1.1.1 1.5-.3l3.1-3.1c.4-.4.4-1.1 0-1.5l-3-3c-.4-.4-1-.4-1.4-.1l-1.6 1.1c-1.9-1.1-3.5-2.7-4.6-4.6l1.1-1.6c.3-.4.3-1-.1-1.4l-3-3c-.4-.4-1-.4-1.4 0Z"></path></svg>
+                  {{ o.phone }}
+                </div>
+              </div>
+              <div style="flex:none;background:#F7EEDE;border-radius:9px;padding:7px 10px;font-size:15px;font-weight:800;color:#453A2C">{{ o.time }}</div>
+            </div>
+
+            <div style="padding:12px 16px 4px;display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ o.items }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;flex-direction:column;gap:0">
+                  <div style="display:flex;justify-content:space-between;gap:12px;font-size:19px;font-weight:600">
+                    <span>{{ it.n }}</span>
+                    <span style="font-weight:800;white-space:nowrap">{{ it.q }}</span>
+                  </div>
+                  <sc-if value="{{ it.isVague }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:8px;background:#F7EEDE;border:2px solid #E2C58F;border-radius:12px;padding:12px 13px">
+                      <div style="display:flex;align-items:center;gap:8px">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8A6A22" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2"></path><path d="M12 19v2"></path><path d="M5 12H3"></path><path d="M21 12h-2"></path><circle cx="12" cy="12" r="4.2"></circle></svg>
+                        <span style="font-size:15px;font-weight:800;color:#8A6A22;letter-spacing:.01em">PICHLI BAAR KA</span>
+                      </div>
+                      <div style="margin-top:7px;font-size:20px;font-weight:800;line-height:1.3">{{ it.guess }}</div>
+                      <div style="margin-top:3px;font-size:16px;font-weight:600;color:#6A5C48">{{ it.guessWhy }}</div>
+                      <div style="margin-top:11px;display:flex;gap:9px">
+                        <button onClick="{{ it.onConfirm }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#FFFFFF;border:2px solid #9CCBAE;border-radius:11px;padding:13px 10px;font-size:17px;font-weight:800;cursor:pointer;color:#1A5E39">
+                          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg>
+                          Yahi Hai
+                        </button>
+                        <button onClick="{{ it.onChange }}" style="flex:1;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:11px;padding:13px 10px;font-size:17px;font-weight:800;cursor:pointer;color:#1B1712">Badlein</button>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ it.isFixed }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:7px;display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;color:#1A5E39">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg>
+                      {{ it.fixedText }}
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin:14px 16px 0;padding:12px 14px;background:#F7EEDE;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:19px;font-weight:700">Total</span>
+              <span style="font-size:28px;font-weight:800;letter-spacing:-.02em">{{ o.totalText }}</span>
+            </div>
+
+            <div style="padding:14px 16px 16px;display:flex;gap:10px">
+              <a href="{{ o.telHref }}" style="flex:none;display:flex;align-items:center;justify-content:center;gap:8px;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:16px 16px;font-size:18px;font-weight:800;text-decoration:none;color:#1B1712">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 3.5 3.5 6.6c-.4.4-.5 1-.3 1.5 2 5 6.7 9.7 11.7 11.7.5.2 1.1.1 1.5-.3l3.1-3.1c.4-.4.4-1.1 0-1.5l-3-3c-.4-.4-1-.4-1.4-.1l-1.6 1.1c-1.9-1.1-3.5-2.7-4.6-4.6l1.1-1.6c.3-.4.3-1-.1-1.4l-3-3c-.4-.4-1-.4-1.4 0Z"></path></svg>
+                Phone
+              </a>
+              <button onClick="{{ o.onAccept }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:10px;background:#23824E;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:16px 12px;font-size:20px;font-weight:800;cursor:pointer">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg>
+                Order Pakka
+              </button>
+            </div>
+          </div>
+        </sc-for>
+        <div style="height:8px"></div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ noNew }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:56px 30px;text-align:center">
+        <div style="width:96px;height:96px;margin:0 auto;border-radius:24px;background:#F0E6D2;display:flex;align-items:center;justify-content:center">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#7A6B55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3z"></path><path d="M3 7l2.5-4h13L21 7"></path><path d="M8.5 12.5 11 15l4.5-4.5"></path></svg>
+        </div>
+        <div style="margin-top:22px;font-size:26px;font-weight:800">Abhi koi naya order nahi</div>
+        <div style="margin-top:10px;font-size:19px;font-weight:600;color:#6A5C48;line-height:1.5">Sab order dekh liye. Naya order aayega to yahin dikhega.</div>
+        <button onClick="{{ goHome }}" style="margin-top:26px;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:16px 22px;font-size:19px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14);color:#1B1712">Ghar Wapas</button>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isTracking }}" hint-placeholder-val="{{ false }}">
+  <div style="padding-bottom:112px">
+    <div style="background:var(--dd-accent,#2A6395);padding:16px 18px 20px;color:#FFFFFF;display:flex;align-items:center;gap:14px">
+      <button onClick="{{ goHome }}" style="flex:none;display:flex;align-items:center;gap:8px;background:#FFFFFF;color:#2A6395;border:none;border-radius:12px;padding:12px 15px;font-size:17px;font-weight:800;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"></path></svg>Ghar
+      </button>
+      <div style="font-size:26px;font-weight:800;letter-spacing:-.01em">Order Tracking</div>
+    </div>
+
+    <div style="padding:18px 16px 8px;display:flex;align-items:center;gap:10px">
+      <span style="width:16px;height:16px;border-radius:8px;background:#E2A63C;border:2px solid #DCCBAA"></span>
+      <span style="font-size:22px;font-weight:800">Delivery Baaki ({{ pendingCount }})</span>
+    </div>
+    <div style="padding:0 16px;display:flex;flex-direction:column;gap:14px">
+      <sc-for list="{{ pendingOrders }}" as="o" hint-placeholder-count="3">
+        <div style="background:#FFFFFF;border:2px solid #DCCBAA;border-radius:16px;box-shadow:0 3px 10px rgba(72,55,32,.14);padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+            <div style="min-width:0">
+              <div style="font-size:23px;font-weight:800;letter-spacing:-.01em">{{ o.cust }}</div>
+              <div style="margin-top:4px;font-size:16px;font-weight:600;color:#6A5C48">{{ o.summary }}</div>
+            </div>
+            <div style="font-size:25px;font-weight:800;white-space:nowrap">{{ o.totalText }}</div>
+          </div>
+          <div style="margin-top:14px;padding-top:14px;border-top:2px dashed #E8DCC4;display:flex;align-items:center;gap:14px">
+            <div style="flex:1;min-width:0;font-size:19px;font-weight:800;line-height:1.25">Order Deliver<br>Ho Gaya?</div>
+            <button onClick="{{ o.onToggle }}" style="flex:none;display:flex;align-items:center;gap:10px;background:#E2A63C;border:2px solid #DCCBAA;border-radius:999px;padding:6px 16px 6px 8px;cursor:pointer;color:#3A2A08">
+              <span style="width:44px;height:44px;border-radius:22px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;border:2px solid #DCCBAA">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3A2A08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+              </span>
+              <span style="font-size:19px;font-weight:800">Nahi</span>
+            </button>
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ noPending }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#F0E6D2;border-radius:14px;padding:24px 18px;text-align:center;font-size:20px;font-weight:700;color:#453A2C">Sab delivery ho gayi. Shabaash!</div>
+      </sc-if>
+    </div>
+
+    <div style="padding:26px 16px 8px;display:flex;align-items:center;gap:10px">
+      <span style="width:16px;height:16px;border-radius:8px;background:#23824E;border:2px solid #DCCBAA"></span>
+      <span style="font-size:22px;font-weight:800">Deliver Ho Gaye ({{ deliveredCount }})</span>
+    </div>
+    <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ deliveredOrders }}" as="o" hint-placeholder-count="2">
+        <div style="background:#EEF7F0;border:3px solid #23824E;border-radius:16px;padding:14px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+            <div style="min-width:0">
+              <div style="font-size:21px;font-weight:800;color:#123D25">{{ o.cust }}</div>
+              <div style="margin-top:4px;font-size:16px;font-weight:600;color:#2F5B3F">{{ o.summary }}</div>
+            </div>
+            <div style="font-size:23px;font-weight:800;white-space:nowrap;color:#123D25">{{ o.totalText }}</div>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:2px dashed #C6E0CE;display:flex;align-items:center;gap:14px">
+            <div style="flex:1;min-width:0;font-size:19px;font-weight:800;color:#123D25">Deliver Ho Gaya</div>
+            <button onClick="{{ o.onToggle }}" style="flex:none;display:flex;align-items:center;gap:10px;background:#23824E;border:2px solid #9CCBAE;border-radius:999px;padding:6px 8px 6px 16px;cursor:pointer;color:#FFFFFF">
+              <span style="font-size:19px;font-weight:800">Haan</span>
+              <span style="width:44px;height:44px;border-radius:22px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;border:2px solid #9CCBAE">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#23824E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ noDelivered }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#F0E6D2;border-radius:14px;padding:22px 18px;text-align:center;font-size:19px;font-weight:700;color:#453A2C">Abhi tak koi delivery mark nahi hui.</div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isKhata }}" hint-placeholder-val="{{ false }}">
+  <div style="padding-bottom:196px">
+    <div style="background:var(--dd-accent,#2A6395);padding:16px 18px 20px;color:#FFFFFF;display:flex;align-items:center;gap:14px">
+      <button onClick="{{ goHome }}" style="flex:none;display:flex;align-items:center;gap:8px;background:#FFFFFF;color:#2A6395;border:none;border-radius:12px;padding:12px 15px;font-size:17px;font-weight:800;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"></path></svg>Ghar
+      </button>
+      <div style="font-size:26px;font-weight:800;letter-spacing:-.01em">Grahak Khata</div>
+    </div>
+
+    <div style="padding:16px 16px 0">
+      <div style="background:#B85536;border:2px solid #DCCBAA;border-radius:14px;padding:16px 18px;color:#FFF6EE;display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <span style="font-size:19px;font-weight:700">Kul Baaki Rakam</span>
+        <span style="font-size:30px;font-weight:800;letter-spacing:-.02em">{{ totalDueText }}</span>
+      </div>
+    </div>
+
+    <div style="padding:16px 16px 0;display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ customers }}" as="c" hint-placeholder-count="5">
+        <button onClick="{{ c.onOpen }}" style="text-align:left;width:100%;display:flex;align-items:center;gap:14px;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:16px;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.12);color:#1B1712">
+          <span style="flex:none;width:52px;height:52px;border-radius:26px;background:#F7EEDE;border:2px solid #DCCBAA;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800">{{ c.initial }}</span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:22px;font-weight:800;letter-spacing:-.01em">{{ c.name }}</span>
+            <span style="display:block;margin-top:3px;font-size:16px;font-weight:600;color:#6A5C48">{{ c.phone }}</span>
+          </span>
+          <span style="flex:none;text-align:right">
+            <span style="display:block;font-size:24px;font-weight:800;color:{{ c.dueColor }}">{{ c.dueText }}</span>
+            <span style="display:block;margin-top:2px;font-size:15px;font-weight:700;color:#6A5C48">{{ c.dueLabel }}</span>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="position:sticky;bottom:92px;padding:16px;background:linear-gradient(to top,#FCF8F0 62%,rgba(245,237,223,0))">
+      <button onClick="{{ openAddCustomer }}" style="width:100%;display:flex;align-items:center;justify-content:center;gap:12px;background:#2A6395;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:20px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+        Naya Grahak Judiye
+      </button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isCustomer }}" hint-placeholder-val="{{ false }}">
+  <div style="padding-bottom:200px">
+    <div style="background:var(--dd-accent,#2A6395);padding:16px 18px 22px;color:#FFFFFF">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button onClick="{{ goKhata }}" style="flex:none;display:flex;align-items:center;gap:8px;background:#FFFFFF;color:#2A6395;border:none;border-radius:12px;padding:12px 15px;font-size:17px;font-weight:800;cursor:pointer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"></path></svg>Khata
+        </button>
+        <div style="font-size:26px;font-weight:800;letter-spacing:-.01em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ cust.name }}</div>
+      </div>
+      <div style="margin-top:16px;background:#FFFFFF;border-radius:14px;padding:16px 18px;color:#1B1712">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#6A5C48">Baaki Rakam</div>
+            <div style="margin-top:4px;font-size:40px;font-weight:800;letter-spacing:-.03em;color:{{ cust.dueColor }}">{{ cust.dueText }}</div>
+          </div>
+          <a href="{{ cust.telHref }}" style="flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;background:#23824E;border:2px solid #DCCBAA;border-radius:12px;padding:12px 16px;text-decoration:none;color:#FFFFFF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 3.5 3.5 6.6c-.4.4-.5 1-.3 1.5 2 5 6.7 9.7 11.7 11.7.5.2 1.1.1 1.5-.3l3.1-3.1c.4-.4.4-1.1 0-1.5l-3-3c-.4-.4-1-.4-1.4-.1l-1.6 1.1c-1.9-1.1-3.5-2.7-4.6-4.6l1.1-1.6c.3-.4.3-1-.1-1.4l-3-3c-.4-.4-1-.4-1.4 0Z"></path></svg>
+            <span style="font-size:15px;font-weight:800">Phone</span>
+          </a>
+        </div>
+        <div style="margin-top:10px;font-size:17px;font-weight:700;color:#6A5C48">{{ cust.phone }}</div>
+      </div>
+    </div>
+
+    <div style="padding:20px 16px 0;display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+      <span style="font-size:22px;font-weight:800">Iski Pasand</span>
+      <span style="font-size:15px;font-weight:700;color:#6A5C48">{{ cust.prefCount }} saved</span>
+    </div>
+    <div style="padding:6px 16px 0;font-size:16px;font-weight:600;color:#6A5C48;line-height:1.5">Jab yeh "wahi wala" bolein, app yahi bhejegi.</div>
+    <div style="padding:12px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ cust.prefs }}" as="p" hint-placeholder-count="3">
+        <div style="background:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:14px 14px 14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 3px 10px rgba(72,55,32,.10)">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:16px;font-weight:700;color:#6A5C48">{{ p.cat }}</div>
+            <div style="margin-top:3px;font-size:21px;font-weight:800;letter-spacing:-.01em">{{ p.item }}</div>
+            <div style="margin-top:3px;font-size:16px;font-weight:600;color:#6A5C48">{{ p.note }}</div>
+          </div>
+          <button onClick="{{ p.onEdit }}" style="flex:none;background:#F7EEDE;border:2px solid #DCCBAA;border-radius:11px;padding:12px 14px;font-size:16px;font-weight:800;cursor:pointer;color:#1B1712">Badlein</button>
+        </div>
+      </sc-for>
+      <button onClick="{{ openAddPref }}" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#FFFFFF;border:2px dashed #C9A96A;border-radius:14px;padding:17px;font-size:19px;font-weight:800;cursor:pointer;color:#8A6A22">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+        Pasand Jodiye
+      </button>
+    </div>
+
+    <div style="padding:26px 16px 0;font-size:22px;font-weight:800">Purana Hisaab</div>
+    <div style="padding:14px 16px 0;display:flex;flex-direction:column;gap:0">
+      <sc-for list="{{ cust.entries }}" as="e" hint-placeholder-count="4">
+        <div style="display:flex;gap:14px">
+          <div style="flex:none;width:46px;display:flex;flex-direction:column;align-items:center">
+            <span style="width:44px;height:44px;border-radius:22px;border:2px solid #DCCBAA;background:{{ e.dotBg }};display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:{{ e.dotInk }}">{{ e.glyph }}</span>
+            <span style="flex:1;width:3px;background:#E8DCC4;min-height:14px"></span>
+          </div>
+          <div style="flex:1;min-width:0;padding-bottom:18px">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">
+              <span style="font-size:20px;font-weight:800">{{ e.label }}</span>
+              <span style="font-size:21px;font-weight:800;white-space:nowrap;color:{{ e.amtColor }}">{{ e.amtText }}</span>
+            </div>
+            <div style="margin-top:3px;font-size:16px;font-weight:600;color:#6A5C48">{{ e.sub }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="position:sticky;bottom:92px;padding:16px;background:linear-gradient(to top,#FCF8F0 62%,rgba(245,237,223,0))">
+      <button onClick="{{ openPay }}" style="width:100%;display:flex;align-items:center;justify-content:center;gap:12px;background:#23824E;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:20px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5h10"></path><path d="M7 9h10"></path><path d="M7 13h5c3 0 5-1.8 5-4"></path><path d="M7 13l7 7"></path></svg>
+        Paisa Mila — Likhein
+      </button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ payOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(27,23,18,.55);display:flex;align-items:flex-end;justify-content:center;z-index:40">
+    <div style="width:100%;max-width:480px;background:#FCF8F0;border-top:2px solid #DCCBAA;border-radius:20px 20px 0 0;padding:18px 16px 22px;animation:dd-sheet .18s ease-out">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div style="font-size:24px;font-weight:800">Kitna Paisa Mila?</div>
+        <button onClick="{{ closeSheet }}" style="background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:10px 14px;font-size:17px;font-weight:800;cursor:pointer;color:#1B1712">Close</button>
+      </div>
+      <div style="margin-top:14px;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:16px;text-align:center">
+        <div style="font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.1">{{ payAmountText }}</div>
+        <div style="margin-top:4px;font-size:16px;font-weight:700;color:#6A5C48">{{ payHint }}</div>
+      </div>
+      <div style="margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <sc-for list="{{ keys }}" as="k" hint-placeholder-count="12">
+          <button onClick="{{ k.onTap }}" style="background:{{ k.bg }};border:2px solid #DCCBAA;border-radius:12px;padding:16px 0;font-size:26px;font-weight:800;cursor:pointer;color:#1B1712">{{ k.label }}</button>
+        </sc-for>
+      </div>
+      <button onClick="{{ submitPay }}" style="margin-top:14px;width:100%;background:#23824E;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:20px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">Khate Mein Likh Dein</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ addOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(27,23,18,.55);display:flex;align-items:flex-end;justify-content:center;z-index:40">
+    <div style="width:100%;max-width:480px;background:#FCF8F0;border-top:2px solid #DCCBAA;border-radius:20px 20px 0 0;padding:18px 16px 22px;animation:dd-sheet .18s ease-out">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div style="font-size:24px;font-weight:800">Naya Grahak Judiye</div>
+        <button onClick="{{ closeSheet }}" style="background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:10px 14px;font-size:17px;font-weight:800;cursor:pointer;color:#1B1712">Close</button>
+      </div>
+      <label style="display:block;margin-top:18px;font-size:19px;font-weight:800">Grahak ka Naam</label>
+      <input value="{{ newName }}" onChange="{{ onNameChange }}" placeholder="Jaise: Sunita Devi" style="margin-top:8px;width:100%;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:18px 16px;font-size:22px;font-weight:700;color:#1B1712"></input>
+      <label style="display:block;margin-top:16px;font-size:19px;font-weight:800">Phone Number</label>
+      <input value="{{ newPhone }}" onChange="{{ onPhoneChange }}" inputMode="numeric" placeholder="98XXX XXXXX" style="margin-top:8px;width:100%;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:18px 16px;font-size:22px;font-weight:700;color:#1B1712"></input>
+      <button onClick="{{ submitCustomer }}" style="margin-top:20px;width:100%;background:#2A6395;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:20px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">Grahak Save Karein</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:0 12px 104px;z-index:50;pointer-events:none">
+    <div style="width:100%;max-width:456px;background:#1B1712;color:#FCF8F0;border-radius:14px;padding:14px 14px 14px 18px;display:flex;align-items:center;gap:12px;animation:dd-up .18s ease-out;pointer-events:auto">
+      <span style="flex:1;min-width:0;font-size:19px;font-weight:700">{{ toastText }}</span>
+      <button onClick="{{ undo }}" style="flex:none;background:#E2A63C;color:#3A2A08;border:none;border-radius:10px;padding:12px 16px;font-size:18px;font-weight:800;cursor:pointer">Wapas Karein</button>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ isRates }}" hint-placeholder-val="{{ false }}">
+  <div style="padding-bottom:196px">
+    <div style="background:var(--dd-accent,#2A6395);padding:16px 18px 20px;color:#FFFFFF;display:flex;align-items:center;gap:14px">
+      <button onClick="{{ goHome }}" style="flex:none;display:flex;align-items:center;gap:8px;background:#FFFFFF;color:#2A6395;border:none;border-radius:12px;padding:12px 15px;font-size:17px;font-weight:800;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"></path></svg>Ghar
+      </button>
+      <div style="font-size:26px;font-weight:800;letter-spacing:-.01em">Rate List</div>
+    </div>
+
+    <div style="padding:16px 16px 0">
+      <div style="background:#FFFFFF;border:2px dashed #C9A96A;border-radius:16px;padding:20px 18px;text-align:center">
+        <div style="width:64px;height:64px;margin:0 auto;border-radius:16px;background:#F7EEDE;display:flex;align-items:center;justify-content:center">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8A6A22" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16V6h16v12H4z"></path><circle cx="12" cy="12" r="3.2"></circle><path d="M9 6l1.3-2h3.4L15 6"></path></svg>
+        </div>
+        <div style="margin-top:14px;font-size:22px;font-weight:800">Purani list ka photo daaliye</div>
+        <div style="margin-top:8px;font-size:17px;font-weight:600;color:#6A5C48;line-height:1.5">Copy wali rate list ka photo kheench kar daal dijiye. Hum saare rate bhar denge.</div>
+        <input type="file" ref="{{ fileRef }}" onChange="{{ onFileChange }}" accept="image/*,.csv,.xlsx" style="display:none"></input>
+        <button onClick="{{ pickFile }}" style="margin-top:16px;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#2A6395;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:18px;font-size:20px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V5"></path><path d="M7 10l5-5 5 5"></path><path d="M4 19h16"></path></svg>
+          Photo Ya File Chuniye
+        </button>
+        <sc-if value="{{ hasUpload }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:14px;background:#EEF7F0;border:2px solid #9CCBAE;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;text-align:left">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#23824E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg>
+            <span style="flex:1;min-width:0;font-size:17px;font-weight:700;color:#123D25;overflow:hidden;text-overflow:ellipsis">{{ uploadName }}</span>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div style="padding:22px 16px 0;display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+      <span style="font-size:22px;font-weight:800">Dukaan ke Rate ({{ itemCount }})</span>
+      <span style="font-size:15px;font-weight:700;color:#6A5C48">Aaj update</span>
+    </div>
+
+    <div style="padding:12px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ rateItems }}" as="it" hint-placeholder-count="6">
+        <div style="background:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:14px 14px 14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 3px 10px rgba(72,55,32,.10)">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:21px;font-weight:800;letter-spacing:-.01em">{{ it.n }}</div>
+            <div style="margin-top:3px;font-size:16px;font-weight:600;color:#6A5C48">{{ it.u }}</div>
+          </div>
+          <div style="flex:none;font-size:24px;font-weight:800;white-space:nowrap">{{ it.priceText }}</div>
+          <button onClick="{{ it.onEdit }}" style="flex:none;background:#F7EEDE;border:2px solid #DCCBAA;border-radius:11px;padding:12px 14px;font-size:16px;font-weight:800;cursor:pointer;color:#1B1712">Badlein</button>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="position:sticky;bottom:92px;padding:16px;background:linear-gradient(to top,#FCF8F0 62%,rgba(252,248,240,0))">
+      <button onClick="{{ openAddItem }}" style="width:100%;display:flex;align-items:center;justify-content:center;gap:12px;background:#B85536;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:20px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+        Naya Item Jodiye
+      </button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ itemOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(27,23,18,.5);display:flex;align-items:flex-end;justify-content:center;z-index:40">
+    <div style="width:100%;max-width:480px;background:#FCF8F0;border-top:2px solid #DCCBAA;border-radius:20px 20px 0 0;padding:18px 16px 22px;animation:dd-sheet .18s ease-out">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div style="font-size:24px;font-weight:800">{{ itemSheetTitle }}</div>
+        <button onClick="{{ closeSheet }}" style="background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:10px 14px;font-size:17px;font-weight:800;cursor:pointer;color:#1B1712">Close</button>
+      </div>
+      <label style="display:block;margin-top:18px;font-size:19px;font-weight:800">Saman ka Naam</label>
+      <input value="{{ itName }}" onChange="{{ onItName }}" placeholder="Jaise: Doodh (full cream)" style="margin-top:8px;width:100%;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:18px 16px;font-size:22px;font-weight:700;color:#1B1712"></input>
+      <label style="display:block;margin-top:16px;font-size:19px;font-weight:800">Kitne ka</label>
+      <input value="{{ itUnit }}" onChange="{{ onItUnit }}" placeholder="Jaise: per litre" style="margin-top:8px;width:100%;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:18px 16px;font-size:22px;font-weight:700;color:#1B1712"></input>
+      <label style="display:block;margin-top:16px;font-size:19px;font-weight:800">Rate (rupaye)</label>
+      <input value="{{ itPrice }}" onChange="{{ onItPrice }}" inputMode="numeric" placeholder="66" style="margin-top:8px;width:100%;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:18px 16px;font-size:22px;font-weight:700;color:#1B1712"></input>
+      <button onClick="{{ submitItem }}" style="margin-top:20px;width:100%;background:#23824E;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:20px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">Rate Save Karein</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ prefOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(27,23,18,.5);display:flex;align-items:flex-end;justify-content:center;z-index:40">
+    <div style="width:100%;max-width:480px;background:#FCF8F0;border-top:2px solid #DCCBAA;border-radius:20px 20px 0 0;padding:18px 16px 22px;animation:dd-sheet .18s ease-out;max-height:88vh;overflow:auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div style="min-width:0">
+          <div style="font-size:24px;font-weight:800">{{ prefTitle }}</div>
+          <div style="margin-top:3px;font-size:16px;font-weight:600;color:#6A5C48">{{ prefSub }}</div>
+        </div>
+        <button onClick="{{ closeSheet }}" style="flex:none;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:10px 14px;font-size:17px;font-weight:800;cursor:pointer;color:#1B1712">Close</button>
+      </div>
+
+      <label style="display:block;margin-top:18px;font-size:19px;font-weight:800">Kis cheez ki pasand</label>
+      <input value="{{ prefCat }}" onChange="{{ onPrefCat }}" placeholder="Jaise: Sabun" style="margin-top:8px;width:100%;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:18px 16px;font-size:22px;font-weight:700;color:#1B1712"></input>
+
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ catChips }}" as="ch" hint-placeholder-count="5">
+          <button onClick="{{ ch.onPick }}" style="background:{{ ch.bg }};color:{{ ch.ink }};border:2px solid {{ ch.border }};border-radius:999px;padding:11px 16px;font-size:17px;font-weight:800;cursor:pointer">{{ ch.n }}</button>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:18px;font-size:19px;font-weight:800">Kaunsa saman</div>
+      <sc-if value="{{ noChoices }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:9px;background:#F7EEDE;border:2px solid #E8DCC4;border-radius:13px;padding:15px 14px;font-size:17px;font-weight:600;color:#6A5C48;line-height:1.5">Upar se cheez chuniye ya naam likhiye, phir yahan brand dikhenge.</div>
+      </sc-if>
+      <div style="margin-top:9px;display:flex;flex-direction:column;gap:9px">
+        <sc-for list="{{ prefChoices }}" as="c" hint-placeholder-count="4">
+          <button onClick="{{ c.onPick }}" style="text-align:left;width:100%;display:flex;align-items:center;gap:12px;background:{{ c.bg }};border:2px solid {{ c.border }};border-radius:13px;padding:15px 14px;cursor:pointer;color:#1B1712">
+            <span style="flex:none;width:26px;height:26px;border-radius:13px;border:2px solid {{ c.dotBorder }};background:{{ c.dotBg }};display:flex;align-items:center;justify-content:center">
+              <sc-if value="{{ c.picked }}" hint-placeholder-val="{{ false }}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"></path></svg>
+              </sc-if>
+            </span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:20px;font-weight:800;letter-spacing:-.01em">{{ c.n }}</span>
+              <span style="display:block;margin-top:2px;font-size:16px;font-weight:600;color:#6A5C48">{{ c.sub }}</span>
+            </span>
+            <sc-if value="{{ c.isTop }}" hint-placeholder-val="{{ false }}">
+              <span style="flex:none;background:#F7EEDE;border-radius:8px;padding:6px 9px;font-size:14px;font-weight:800;color:#8A6A22">SABSE ZYADA</span>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+
+      <label style="display:block;margin-top:18px;font-size:19px;font-weight:800">Choti baat (optional)</label>
+      <input value="{{ prefNote }}" onChange="{{ onPrefNote }}" placeholder="Jaise: hamesha bada packet" style="margin-top:8px;width:100%;background:#FFFFFF;border:2px solid #DCCBAA;border-radius:12px;padding:18px 16px;font-size:22px;font-weight:700;color:#1B1712"></input>
+
+      <button onClick="{{ submitPref }}" style="margin-top:20px;width:100%;background:#23824E;color:#FFFFFF;border:2px solid #DCCBAA;border-radius:14px;padding:20px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(72,55,32,.14)">Pasand Save Karein</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;z-index:30">
+    <div style="width:100%;max-width:480px;background:#FFFFFF;border-top:2px solid #E4D8BF;box-shadow:0 -4px 18px rgba(72,55,32,.12);display:flex;gap:3px;padding:8px 7px 11px">
+      <button onClick="{{ goHome }}" style="flex:1;min-width:0;min-height:66px;background:{{ navHome.bg }};color:{{ navHome.ink }};border:none;border-radius:13px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5 12 4l8.5 6.5V20H3.5z"></path><path d="M9.5 20v-5.5h5V20"></path></svg>
+        <span style="font-size:13px;font-weight:800">Ghar</span>
+      </button>
+      <button onClick="{{ goOrders }}" style="flex:1;min-width:0;min-height:66px;background:{{ navOrders.bg }};color:{{ navOrders.ink }};border:none;border-radius:13px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h17v12h-17z"></path><path d="M3.5 8 6 4h12l2.5 4"></path><path d="M9.5 12h5"></path></svg>
+        <span style="font-size:13px;font-weight:800">Orders</span>
+      </button>
+      <button onClick="{{ goTracking }}" style="flex:1;min-width:0;min-height:66px;background:{{ navTrack.bg }};color:{{ navTrack.ink }};border:none;border-radius:13px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17.5" r="2.4"></circle><circle cx="18" cy="17.5" r="2.4"></circle><path d="M3 7h3l3.4 10.5H15"></path><path d="M14 8h6v5h-6z"></path></svg>
+        <span style="font-size:13px;font-weight:800">Delivery</span>
+      </button>
+      <button onClick="{{ goKhata }}" style="flex:1;min-width:0;min-height:66px;background:{{ navKhata.bg }};color:{{ navKhata.ink }};border:none;border-radius:13px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h13v17h-13z"></path><path d="M6.5 3.5H5v17h1.5"></path><path d="M10 9h6"></path><path d="M10 13h6"></path></svg>
+        <span style="font-size:13px;font-weight:800">Khata</span>
+      </button>
+      <button onClick="{{ goRates }}" style="flex:1;min-width:0;min-height:66px;background:{{ navRates.bg }};color:{{ navRates.ink }};border:none;border-radius:13px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5h9"></path><path d="M7 8.5h9"></path><path d="M7 12h4.5c2.6 0 4.5-1.5 4.5-3.5"></path><path d="M7.5 12 14 19"></path></svg>
+        <span style="font-size:13px;font-weight:800">Rate List</span>
+      </button>
+    </div>
+  </div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;baseText&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:17,&quot;min&quot;:15,&quot;max&quot;:22,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Padhne mein aasani&quot;},&quot;extraContrast&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Padhne mein aasani&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2A6395&quot;,&quot;options&quot;:[&quot;#2A6395&quot;,&quot;#2F7A5C&quot;,&quot;#8A6A22&quot;,&quot;#7A4A6E&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Rang&quot;}}">
+const rs = n => "\u20B9" + Number(n).toLocaleString("en-IN");
+
+const ORDERS = [
+  {id:"o1", cust:"Meena Bhabhi", phone:"93725 10084", time:"Abhi, 9:42", state:"new",
+   items:[{n:"Doodh (full cream)",q:"2 litre"},{n:"Dahi",q:"1 kg"},{n:"Paneer",q:"250 gram"}], total:410},
+  {id:"o2", cust:"Rakesh Yadav", phone:"97662 33019", time:"9:20 AM", state:"new",
+   items:[{n:"Atta",q:"5 kg"},{n:"Chini",q:"1 kg"},{n:"Chai patti",q:"250 gram"},
+     {n:"\u201Croz wala tel\u201D", q:"1 litre", vague:true, cat:"Tel",
+      guess:"Fortune Sunflower 1L", guessWhy:"Rakesh ne 7 baar yahi liya hai"}], total:735},
+  {id:"o3", cust:"Sunita Devi", phone:"98220 41562", time:"8:55 AM", state:"new",
+   items:[
+     {n:"\u201Cwahi wala sabun\u201D", q:"4 nag", vague:true, cat:"Sabun",
+      guess:"Lifebuoy Total 75g", guessWhy:"Sunita ne 9 baar yahi liya hai"},
+     {n:"Doodh (toned)",q:"1 litre"},{n:"Anda",q:"12 nag"}], total:145},
+  {id:"o4", cust:"Iqbal Bhai", phone:"98701 45520", time:"8:30 AM", state:"accepted",
+   items:[{n:"Doodh (full cream)",q:"4 litre"},{n:"Makhan",q:"500 gram"}], total:620},
+  {id:"o5", cust:"Pooja Sharma", phone:"90048 92231", time:"8:10 AM", state:"accepted",
+   items:[{n:"Dahi",q:"2 kg"},{n:"Namak",q:"1 kg"}], total:230},
+  {id:"o6", cust:"Ashok Kumar", phone:"99304 77812", time:"7:50 AM", state:"accepted",
+   items:[{n:"Doodh (toned)",q:"2 litre"},{n:"Bread",q:"1 packet"}], total:130},
+  {id:"o7", cust:"Sunita Devi", phone:"98220 41562", time:"7:20 AM", state:"delivered",
+   items:[{n:"Chai patti",q:"500 gram"}], total:290},
+  {id:"o8", cust:"Meena Bhabhi", phone:"93725 10084", time:"7:05 AM", state:"delivered",
+   items:[{n:"Doodh (full cream)",q:"1 litre"},{n:"Biscuit",q:"3 packet"}], total:175},
+  {id:"o9", cust:"Rakesh Yadav", phone:"97662 33019", time:"6:45 AM", state:"delivered",
+   items:[{n:"Anda",q:"30 nag"}], total:255}
+];
+
+const CATALOG = {
+  "Sabun": [
+    {n:"Lifebuoy Total", sub:"75 gram \u00B7 \u20B928 \u00B7 9 baar liya", count:9},
+    {n:"Santoor Sandal", sub:"100 gram \u00B7 \u20B934 \u00B7 2 baar liya", count:2},
+    {n:"Dettol Original", sub:"75 gram \u00B7 \u20B942 \u00B7 1 baar liya", count:1},
+    {n:"Medimix", sub:"75 gram \u00B7 \u20B935 \u00B7 kabhi nahi", count:0}
+  ],
+  "Doodh": [
+    {n:"Doodh (full cream)", sub:"per litre \u00B7 \u20B966 \u00B7 22 baar liya", count:22},
+    {n:"Doodh (toned)", sub:"per litre \u00B7 \u20B954 \u00B7 4 baar liya", count:4}
+  ],
+  "Atta": [
+    {n:"Aashirvaad Atta", sub:"5 kg \u00B7 \u20B9245 \u00B7 6 baar liya", count:6},
+    {n:"Khula atta", sub:"per kg \u00B7 \u20B942 \u00B7 2 baar liya", count:2}
+  ],
+  "Tel": [
+    {n:"Fortune Sunflower", sub:"1 litre \u00B7 \u20B9165 \u00B7 7 baar liya", count:7},
+    {n:"Sarson ka tel", sub:"1 litre \u00B7 \u20B9148 \u00B7 3 baar liya", count:3}
+  ],
+  "Chai patti": [
+    {n:"Tata Tea Gold", sub:"250 gram \u00B7 \u20B9130 \u00B7 11 baar liya", count:11},
+    {n:"Red Label", sub:"250 gram \u00B7 \u20B9118 \u00B7 2 baar liya", count:2}
+  ]
+};
+
+const CUSTOMERS = [
+  {id:"c1", name:"Sunita Devi", phone:"98220 41562", due:840,
+   prefs:[
+     {cat:"Sabun", item:"Lifebuoy Total", note:"75 gram wala, 4 ka pack"},
+     {cat:"Doodh", item:"Doodh (toned)", note:"Roz subah 7 baje"},
+     {cat:"Chai patti", item:"Tata Tea Gold", note:"250 gram"}
+   ], entries:[
+    {t:"order", label:"Order liya", sub:"Aaj, 8:55 AM \u00B7 Doodh, Anda", amt:145},
+    {t:"pay", label:"Paisa mila", sub:"Kal, 6:30 PM \u00B7 Cash", amt:500},
+    {t:"order", label:"Order liya", sub:"Kal, 9:10 AM \u00B7 Chai patti", amt:290},
+    {t:"order", label:"Order liya", sub:"3 Sept \u00B7 Atta, Chini, Tel", amt:905}
+  ]},
+  {id:"c2", name:"Ashok Kumar", phone:"99304 77812", due:0, entries:[
+    {t:"pay", label:"Paisa mila", sub:"Aaj, 8:05 AM \u00B7 UPI", amt:130},
+    {t:"order", label:"Order liya", sub:"Aaj, 7:50 AM \u00B7 Doodh, Bread", amt:130}
+  ]},
+  {id:"c3", name:"Meena Bhabhi", phone:"93725 10084", due:1560,
+   prefs:[
+     {cat:"Doodh", item:"Doodh (full cream)", note:"Dono waqt, subah aur shaam"},
+     {cat:"Atta", item:"Aashirvaad Atta", note:"5 kg ka packet"}
+   ], entries:[
+    {t:"order", label:"Order liya", sub:"Aaj, 9:42 AM \u00B7 Doodh, Dahi, Paneer", amt:410},
+    {t:"order", label:"Order liya", sub:"Aaj, 7:05 AM \u00B7 Doodh, Biscuit", amt:175},
+    {t:"pay", label:"Paisa mila", sub:"2 Sept \u00B7 Cash", amt:1000},
+    {t:"order", label:"Order liya", sub:"1 Sept \u00B7 Mahine ka saman", amt:1975}
+  ]},
+  {id:"c4", name:"Rakesh Yadav", phone:"97662 33019", due:275,
+   prefs:[
+     {cat:"Tel", item:"Fortune Sunflower", note:"1 litre ki bottle"},
+     {cat:"Chai patti", item:"Tata Tea Gold", note:"250 gram"}
+   ], entries:[
+    {t:"order", label:"Order liya", sub:"Aaj, 9:20 AM \u00B7 Atta, Chini, Tel", amt:735},
+    {t:"pay", label:"Paisa mila", sub:"Aaj, 7:00 AM \u00B7 Cash", amt:715},
+    {t:"order", label:"Order liya", sub:"Aaj, 6:45 AM \u00B7 Anda", amt:255}
+  ]},
+  {id:"c5", name:"Pooja Sharma", phone:"90048 92231", due:0, entries:[
+    {t:"pay", label:"Paisa mila", sub:"Aaj, 8:15 AM \u00B7 UPI", amt:230},
+    {t:"order", label:"Order liya", sub:"Aaj, 8:10 AM \u00B7 Dahi, Namak", amt:230}
+  ]},
+  {id:"c6", name:"Iqbal Bhai", phone:"98701 45520", due:3200, entries:[
+    {t:"order", label:"Order liya", sub:"Aaj, 8:30 AM \u00B7 Doodh, Makhan", amt:620},
+    {t:"order", label:"Order liya", sub:"Kal \u00B7 Hotel ka doodh", amt:1580},
+    {t:"pay", label:"Paisa mila", sub:"31 Aug \u00B7 Cash", amt:2000},
+    {t:"order", label:"Order liya", sub:"30 Aug \u00B7 Hafte ka hisaab", amt:3000}
+  ]}
+];
+
+const ITEMS = [
+  {id:"i1", n:"Doodh (full cream)", u:"per litre", p:66},
+  {id:"i2", n:"Doodh (toned)", u:"per litre", p:54},
+  {id:"i3", n:"Dahi", u:"per kg", p:90},
+  {id:"i4", n:"Paneer", u:"per 250 gram", p:110},
+  {id:"i5", n:"Makhan", u:"per 500 gram", p:280},
+  {id:"i6", n:"Atta", u:"per 5 kg", p:245},
+  {id:"i7", n:"Chini", u:"per kg", p:48},
+  {id:"i8", n:"Chai patti", u:"per 250 gram", p:130},
+  {id:"i9", n:"Tel", u:"per litre", p:165},
+  {id:"i10", n:"Anda", u:"per 12 nag", p:84}
+];
+
+class Component extends DCLogic {
+  state = {
+    screen: "login", orders: ORDERS, customers: CUSTOMERS,
+    custId: null, sheet: null, pay: "", newName: "", newPhone: "",
+    items: ITEMS, editId: null, itName: "", itUnit: "", itPrice: "", uploadName: null,
+    resolved: {}, prefKey: null, prefEditIdx: null, prefFromOrder: false,
+    prefCustName: "", prefCat: "", prefPick: "", prefNote: "", prefPhrase: "",
+    toast: null
+  };
+  fileRef = React.createRef();
+
+  componentDidMount(){ this.syncVars(); }
+  componentDidUpdate(){ this.syncVars(); }
+  componentWillUnmount(){ clearTimeout(this._t); }
+
+  syncVars(){
+    const r = document.documentElement.style;
+    r.setProperty("--dd-base", (this.props.baseText || 17) + "px");
+    r.setProperty("--dd-accent", this.props.accent || "#2A6395");
+    r.setProperty("--dd-ink", this.props.extraContrast ? "#000000" : "#1B1712");
+  }
+
+  go(screen){ this.setState({screen, sheet:null}); window.scrollTo(0,0); }
+
+  showToast(text, undoFn){
+    clearTimeout(this._t);
+    this.setState({toast:{text, undo:undoFn}});
+    this._t = setTimeout(()=>this.setState({toast:null}), 6000);
+  }
+
+  setOrderState(id, st){
+    this.setState(s => ({orders: s.orders.map(o => o.id===id ? Object.assign({}, o, {state:st}) : o)}));
+  }
+
+  renderVals(){
+    const s = this.state;
+    const news = s.orders.filter(o=>o.state==="new");
+    const pending = s.orders.filter(o=>o.state==="accepted");
+    const delivered = s.orders.filter(o=>o.state==="delivered");
+    const summary = o => o.items.map(i=>i.n.split(" (")[0]).join(", ");
+
+    const cust = s.customers.find(c=>c.id===s.custId) || s.customers[0];
+    const totalDue = s.customers.reduce((a,c)=>a+c.due,0);
+
+    const accent = this.props.accent || "#2A6395";
+    const nav = key => (s.screen === key || (key === "khata" && s.screen === "customer"))
+      ? {bg:"#EAF1F7", ink:accent}
+      : {bg:"transparent", ink:"#6A5C48"};
+
+    const payNum = parseInt(s.pay || "0", 10) || 0;
+    const keyDefs = ["1","2","3","4","5","6","7","8","9","Mitao","0","500"];
+
+    return {
+      isLogin: s.screen==="login", isHome: s.screen==="home", isOrders: s.screen==="orders",
+      isTracking: s.screen==="tracking", isKhata: s.screen==="khata", isCustomer: s.screen==="customer",
+
+      doLogin: ()=>this.go("home"),
+      doLogout: ()=>this.go("login"),
+      goHome: ()=>this.go("home"),
+      goOrders: ()=>this.go("orders"),
+      goTracking: ()=>this.go("tracking"),
+      goKhata: ()=>this.go("khata"),
+
+      todayCount: s.orders.length,
+      pendingCount: pending.length,
+      deliveredCount: delivered.length,
+      newCount: news.length,
+      hasNew: news.length > 0,
+      noNew: news.length === 0,
+      noPending: pending.length === 0,
+      noDelivered: delivered.length === 0,
+      newCountLabel: news.length ? news.length + " order dekhna baaki" : "Sab dekh liye",
+      trackingSub: pending.length + " delivery baaki, " + delivered.length + " ho gayi",
+      khataSub: s.customers.length + " grahak \u00B7 " + rs(totalDue) + " baaki",
+
+      newOrders: news.map(o=>Object.assign({}, o, {
+        items: o.items.map((it,ix)=>{
+          const key = o.id + ":" + ix;
+          const fixed = s.resolved[key];
+          return {
+            n: it.n, q: it.q,
+            isVague: !!it.vague && !fixed,
+            isFixed: !!fixed,
+            fixedText: fixed ? fixed + " \u2014 pakka" : "",
+            guess: it.guess || "", guessWhy: it.guessWhy || "",
+            onConfirm: ()=>{
+              this.setState(st=>({resolved: Object.assign({}, st.resolved, {[key]: it.guess})}));
+              this.showToast(it.guess + " lag gaya", ()=>this.setState(st=>{
+                const r = Object.assign({}, st.resolved); delete r[key]; return {resolved:r};
+              }));
+            },
+            onChange: ()=>this.setState({
+              sheet:"pref", prefKey:key, prefEditIdx:null, prefFromOrder:true,
+              prefCustName:o.cust, prefCat: it.cat || "", prefPick: it.guess || "",
+              prefNote:"", prefPhrase: it.n
+            })
+          };
+        }),
+        totalText: rs(o.total),
+        telHref: "tel:" + o.phone.replace(/\s/g,""),
+        onAccept: ()=>{
+          this.setOrderState(o.id, "accepted");
+          this.showToast(o.cust + " ka order pakka hua", ()=>this.setOrderState(o.id,"new"));
+        }
+      })),
+
+      pendingOrders: pending.map(o=>Object.assign({}, o, {
+        totalText: rs(o.total), summary: summary(o),
+        onToggle: ()=>{
+          this.setOrderState(o.id, "delivered");
+          this.showToast(o.cust + " \u2014 deliver ho gaya", ()=>this.setOrderState(o.id,"accepted"));
+        }
+      })),
+
+      deliveredOrders: delivered.map(o=>Object.assign({}, o, {
+        totalText: rs(o.total), summary: summary(o),
+        onToggle: ()=>{
+          this.setOrderState(o.id, "accepted");
+          this.showToast(o.cust + " \u2014 wapas 'baaki' mein daala", ()=>this.setOrderState(o.id,"delivered"));
+        }
+      })),
+
+      customers: s.customers.map(c=>({
+        id:c.id, name:c.name, phone:c.phone, initial:c.name.charAt(0),
+        dueText: c.due>0 ? rs(c.due) : rs(0),
+        dueLabel: c.due>0 ? "Baaki" : "Chukta",
+        dueColor: c.due>0 ? "#B85536" : "#23824E",
+        onOpen: ()=>{ this.setState({custId:c.id, screen:"customer"}); window.scrollTo(0,0); }
+      })),
+      totalDueText: rs(totalDue),
+
+      cust: {
+        name: cust.name, phone: cust.phone,
+        telHref: "tel:" + cust.phone.replace(/\s/g,""),
+        dueText: rs(cust.due),
+        dueColor: cust.due>0 ? "#B85536" : "#23824E",
+        prefCount: (cust.prefs || []).length,
+        prefs: (cust.prefs || []).map((p,i)=>({
+          cat: p.cat, item: p.item, note: p.note,
+          onEdit: ()=>this.setState({
+            sheet:"pref", prefKey:null, prefEditIdx:i, prefFromOrder:false,
+            prefCustName:cust.name, prefCat:p.cat, prefPick:p.item, prefNote:p.note, prefPhrase:""
+          })
+        })),
+        entries: cust.entries.map((e,i)=>({
+          label:e.label, sub:e.sub,
+          glyph: e.t==="pay" ? "\u20B9" : "\u2713",
+          dotBg: e.t==="pay" ? "#23824E" : "#F7EEDE",
+          dotInk: e.t==="pay" ? "#FFFFFF" : "#1B1712",
+          amtText: (e.t==="pay" ? "\u2212 " : "+ ") + rs(e.amt),
+          amtColor: e.t==="pay" ? "#23824E" : "#B85536"
+        }))
+      },
+
+      payOpen: s.sheet==="pay",
+      addOpen: s.sheet==="add",
+      openPay: ()=>this.setState({sheet:"pay", pay:""}),
+      openAddCustomer: ()=>this.setState({sheet:"add", newName:"", newPhone:""}),
+      closeSheet: ()=>this.setState({sheet:null}),
+      payAmountText: rs(payNum),
+      payHint: payNum > 0 ? cust.name + " ke khate mein" : "Number dabaiye",
+      keys: keyDefs.map(k=>({
+        label: k,
+        bg: k==="Mitao" ? "#F0E6D2" : (k==="500" ? "#F7EEDE" : "#FFFFFF"),
+        onTap: ()=>{
+          if(k==="Mitao") this.setState(st=>({pay: st.pay.slice(0,-1)}));
+          else if(k==="500") this.setState(st=>({pay: String((parseInt(st.pay||"0",10)||0) + 500)}));
+          else this.setState(st=>({pay: (st.pay + k).slice(0,6)}));
+        }
+      })),
+      submitPay: ()=>{
+        if(payNum <= 0){ this.setState({sheet:null}); return; }
+        const before = s.customers;
+        this.setState({
+          sheet:null, pay:"",
+          customers: s.customers.map(c=>c.id===cust.id ? Object.assign({}, c, {
+            due: Math.max(0, c.due - payNum),
+            entries: [{t:"pay", label:"Paisa mila", sub:"Abhi \u00B7 Cash", amt:payNum}].concat(c.entries)
+          }) : c)
+        });
+        this.showToast(rs(payNum) + " khate mein likh diya", ()=>this.setState({customers: before}));
+      },
+
+      newName: s.newName, newPhone: s.newPhone,
+      onNameChange: e=>this.setState({newName:e.target.value}),
+      onPhoneChange: e=>this.setState({newPhone:e.target.value}),
+      submitCustomer: ()=>{
+        const name = s.newName.trim();
+        if(!name){ this.setState({sheet:null}); return; }
+        const before = s.customers;
+        const nc = {id:"n"+Date.now(), name, phone: s.newPhone.trim() || "\u2014", due:0,
+          entries:[{t:"pay", label:"Khata khula", sub:"Abhi \u00B7 Naya grahak", amt:0}]};
+        this.setState({sheet:null, customers: s.customers.concat([nc])});
+        this.showToast(name + " khate mein jud gaye", ()=>this.setState({customers: before}));
+      },
+
+      isRates: s.screen==="rates",
+      goRates: ()=>this.go("rates"),
+      showNav: s.screen!=="login",
+      navHome: nav("home"), navOrders: nav("orders"), navTrack: nav("tracking"),
+      navKhata: nav("khata"), navRates: nav("rates"),
+
+      ratesSub: s.items.length + " item ke rate saved",
+      itemCount: s.items.length,
+      rateItems: s.items.map(i=>({
+        n:i.n, u:i.u, priceText: rs(i.p),
+        onEdit: ()=>this.setState({sheet:"item", editId:i.id, itName:i.n, itUnit:i.u, itPrice:String(i.p)})
+      })),
+      fileRef: this.fileRef,
+      pickFile: ()=>{ if(this.fileRef.current) this.fileRef.current.click(); },
+      onFileChange: e=>{
+        const f = e.target.files && e.target.files[0];
+        if(!f) return;
+        this.setState({uploadName: f.name + " \u2014 padh liya"});
+        this.showToast("List mil gayi. Rate check kar lijiye.", ()=>this.setState({uploadName:null}));
+      },
+      hasUpload: !!s.uploadName,
+      uploadName: s.uploadName || "",
+
+      itemOpen: s.sheet==="item",
+      itemSheetTitle: s.editId ? "Rate Badlein" : "Naya Item Jodiye",
+      openAddItem: ()=>this.setState({sheet:"item", editId:null, itName:"", itUnit:"", itPrice:""}),
+      itName: s.itName, itUnit: s.itUnit, itPrice: s.itPrice,
+      onItName: e=>this.setState({itName:e.target.value}),
+      onItUnit: e=>this.setState({itUnit:e.target.value}),
+      onItPrice: e=>this.setState({itPrice:e.target.value.replace(/[^0-9]/g,"")}),
+      submitItem: ()=>{
+        const name = s.itName.trim();
+        const price = parseInt(s.itPrice || "0", 10) || 0;
+        if(!name){ this.setState({sheet:null}); return; }
+        const before = s.items;
+        const unit = s.itUnit.trim() || "per nag";
+        if(s.editId){
+          this.setState({sheet:null, items: s.items.map(i=>i.id===s.editId ? Object.assign({}, i, {n:name, u:unit, p:price}) : i)});
+          this.showToast(name + " ka rate " + rs(price) + " kar diya", ()=>this.setState({items: before}));
+        } else {
+          this.setState({sheet:null, items: s.items.concat([{id:"ni"+Date.now(), n:name, u:unit, p:price}])});
+          this.showToast(name + " list mein jud gaya", ()=>this.setState({items: before}));
+        }
+      },
+
+      prefOpen: s.sheet==="pref",
+      prefTitle: s.prefFromOrder ? "Yeh kaunsa saman?" : (s.prefEditIdx !== null ? "Pasand Badlein" : "Pasand Jodiye"),
+      prefSub: s.prefFromOrder
+        ? s.prefCustName + " ne kaha: " + s.prefPhrase
+        : s.prefCustName + " ke liye",
+      prefCat: s.prefCat, prefNote: s.prefNote,
+      onPrefCat: e=>this.setState({prefCat:e.target.value, prefPick:""}),
+      onPrefNote: e=>this.setState({prefNote:e.target.value}),
+      catChips: Object.keys(CATALOG).map(k=>({
+        n:k,
+        bg: s.prefCat===k ? "#EAF1F7" : "#FFFFFF",
+        ink: s.prefCat===k ? accent : "#453A2C",
+        border: s.prefCat===k ? accent : "#DCCBAA",
+        onPick: ()=>this.setState({prefCat:k, prefPick:""})
+      })),
+      noChoices: !(CATALOG[s.prefCat] || []).length,
+      prefChoices: (CATALOG[s.prefCat] || []).map((c,i)=>{
+        const picked = s.prefPick === c.n || s.prefPick.indexOf(c.n) === 0;
+        return {
+          n:c.n, sub:c.sub, picked, isTop: i===0,
+          bg: picked ? "#EEF7F0" : "#FFFFFF",
+          border: picked ? "#9CCBAE" : "#DCCBAA",
+          dotBorder: picked ? "#23824E" : "#C9B693",
+          dotBg: picked ? "#23824E" : "#FFFFFF",
+          onPick: ()=>this.setState({prefPick:c.n})
+        };
+      }),
+      openAddPref: ()=>this.setState({
+        sheet:"pref", prefKey:null, prefEditIdx:null, prefFromOrder:false,
+        prefCustName:cust.name, prefCat:"", prefPick:"", prefNote:"", prefPhrase:""
+      }),
+      submitPref: ()=>{
+        const catName = s.prefCat.trim();
+        const pick = s.prefPick;
+        if(!catName || !pick){ this.setState({sheet:null}); return; }
+        if(s.prefFromOrder && s.prefKey){
+          const beforeR = s.resolved, beforeC = s.customers;
+          this.setState({
+            sheet:null,
+            resolved: Object.assign({}, s.resolved, {[s.prefKey]: pick}),
+            customers: s.customers.map(c=>{
+              if(c.name !== s.prefCustName) return c;
+              const prefs = (c.prefs || []).slice();
+              const at = prefs.findIndex(p=>p.cat === catName);
+              const row = {cat:catName, item:pick, note:s.prefNote.trim() || "Order se yaad rakha"};
+              if(at >= 0) prefs[at] = row; else prefs.push(row);
+              return Object.assign({}, c, {prefs});
+            })
+          });
+          this.showToast(pick + " lag gaya, pasand mein yaad rakha",
+            ()=>this.setState({resolved: beforeR, customers: beforeC}));
+          return;
+        }
+        const before = s.customers;
+        this.setState({sheet:null, customers: s.customers.map(c=>{
+          if(c.id !== cust.id) return c;
+          const prefs = (c.prefs || []).slice();
+          const row = {cat:catName, item:pick, note:s.prefNote.trim() || ""};
+          if(s.prefEditIdx !== null) prefs[s.prefEditIdx] = row; else prefs.push(row);
+          return Object.assign({}, c, {prefs});
+        })});
+        this.showToast(catName + ": " + pick + " yaad rakh liya", ()=>this.setState({customers: before}));
+      },
+
+      toastOpen: !!s.toast,
+      toastText: s.toast ? s.toast.text : "",
+      undo: ()=>{ if(s.toast && s.toast.undo) s.toast.undo(); clearTimeout(this._t); this.setState({toast:null}); }
+    };
+  }
+}
+</script>
+</body>
+</html>
